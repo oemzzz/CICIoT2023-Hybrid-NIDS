@@ -1,21 +1,22 @@
 # CICIoT2023 Hybrid NIDS
 
-IoT ağlarındaki siber saldırıları tespit etmek için geliştirdiğim iki aşamalı hibrit bir Saldırı Tespit Sistemi (NIDS) projesi. 
+A two-stage hybrid Network Intrusion Detection System (NIDS) developed to detect cyberattacks in IoT networks.
 
-Bilecik Şeyh Edebali Üniversitesi Bilgisayar Mühendisliği bitirme çalışması olarak hazırladığım bu projede, derin öğrenmenin özellik çıkarma gücünü makine öğrenmesinin sınıflandırma yeteneğiyle birleştirdim.
-
----
-
-## Proje Ne Yapıyor?
-* **Veri Seti:** CICIoT2023 veri setinin dengelenmiş %20'lik alt kümesi (34 farklı sınıf).
-* **Mimari:** 
-  1. **1. Aşama:** Ham ağ verisinden 128 boyutlu derin özellikler çıkaran çok ölçekli bir **1D-CNN**.
-  2. **2. Aşama:** Çıkarılan bu özelliklerle ham veriyi birleştirip ($46 + 128 = 174$ boyut) **XGBoost**, **Random Forest** ve **LightGBM** modellerine besleme.
-* **Optimizasyon:** Sınıf dengesizliğini çözmek için eğitim setine özel örnek ağırlıklandırması (`sample_weight`) uygulandı.
+Built as my graduation thesis in Computer Engineering at Bilecik Seyh Edebali University, this project combines the feature-extraction power of deep learning with the classification capability of machine learning.
 
 ---
 
-## Özet Sonuçlar (Macro-Average)
+## What Does the Project Do?
+
+* **Dataset:** A balanced 20% subset of the CICIoT2023 dataset (34 distinct classes).
+* **Architecture:**
+  1. **Stage 1:** A multi-scale **1D-CNN** that extracts 128-dimensional deep features from raw network traffic.
+  2. **Stage 2:** These extracted features are combined with the raw data ($46 + 128 = 174$ dimensions) and fed into **XGBoost**, **Random Forest**, and **LightGBM** models.
+* **Optimization:** Custom sample weighting (`sample_weight`) was applied to the training set to address class imbalance.
+
+---
+
+## Summary Results (Macro-Average)
 
 | Model | Accuracy | Precision | Recall | F1-Score |
 | :--- | :---: | :---: | :---: | :---: |
@@ -26,12 +27,3 @@ Bilecik Şeyh Edebali Üniversitesi Bilgisayar Mühendisliği bitirme çalışma
 | **LightGBM (Base)** | 0.992 | 0.764 | 0.742 | 0.745 |
 | **LightGBM (Hybrid)** | 0.993 | 0.780 | 0.742 | 0.751 |
 | **Ensemble (Majority Vote)** | **0.993** | **0.843** | **0.761** | **0.784** |
-
----
-
-##  Çalıştırma
-
-1. Projeyi klonla:
-   ```bash
-   git clone [https://github.com/oemzzz/CICIoT2023-Hybrid-NIDS.git](https://github.com/oemzzz/CICIoT2023-Hybrid-NIDS.git)
-   cd CICIoT2023-Hybrid-NIDS
